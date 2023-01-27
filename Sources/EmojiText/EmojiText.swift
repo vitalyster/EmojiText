@@ -162,7 +162,8 @@ public struct EmojiText: View {
                 result = result + Text(verbatim: preRendered)
             }
         } else {
-            preRendered.split(separator: String.emojiSeparator, omittingEmptySubsequences: true).forEach { substring in
+            preRendered.components(separatedBy: String.emojiSeparator)
+                .filter { $0 != "" }.forEach { substring in
                 if let image = localEmojis.first(where: { $0.shortcode == String(substring) }) {
                     result = result + Text("\(Image(uiImage: image.image))")
                 } else if isMarkdown {
